@@ -129,16 +129,65 @@ findpi2 <- function(p) {
 
 #8.5 Set Operations
 
+x <- c(1,2,5)
+y <- c(5,1,8,9)
+union(x,y) #lists all unique values
+
+intersect(x,y) #lists common values
+
+setdiff(x,y) # all elements of x that are not in y 
+setdiff(y,x) # all elements of y that are not in x 
+
+setequal(x,y) #tests whether x and y are equal
+setequal(x, c(1,2,5))
+
+2 %in% x #tests membership does x contain element 
+choose(5,2)
 
 
+symdiff <- function(a,b){
+  sdfxy <- setdiff(x,y)
+  sdfyx <- setdiff(y,x)
+  return(union(sdfxy,sdfyx))
+}
 
+symdiff(x,y)
 
+"%subsetof%" <- function(u,v) {
+  return(setequal(intersect(u,v),u))
+}
+c(3,8) %subsetof% 1:10
+c(3,8) %subsetof% 5:10
 
+c32 <- combn(1:3,2)
+c32
 
+class(c32)
 
+combn(1:3,2,sum)
 
+#8.6 Simulation Programming in R 
+#8.6.1 Built in random variate generators
+x <- rbinom(100000,5,0.5)
+mean(x>= 4)
 
+sum <- 0
+nreps <- 100000
+for (i in 1:nreps) {
+  xy <- rnorm(2) # generate 2 N(0,1)s
+  sum <- sum + max(xy)
+}
+print(sum/nreps)
 
+emax <- function(nreps) {
+  x <- rnorm(2*nreps)
+  maxxy <- pmax(x[1:nreps], x[(nreps+1):(2*nreps)])
+  return(mean(maxxy))
+}
+emax(nreps)
 
+#8.6.2 Obtainging the same random stream in repeated runs 
+set.seed(1234)
 
+#8.6.3 Extended example: A combination simulation
 
